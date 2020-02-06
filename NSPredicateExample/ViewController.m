@@ -21,7 +21,7 @@
 
 - (NSInteger)getPriceFromString:(NSString *)price
 {
-	NSString *price = @"查詢完成|\n車資金額:354564\n交易狀態:扣款-失敗\n其它說明:\n如對金額有疑問";
+	//NSString *price = @"查詢完成|\n車資金額:354564\n交易狀態:扣款-失敗\n其它說明:\n如對金額有疑問";
 	//正則表達式過濾條件
 	NSString *pattern = @"金額:+[0-9]{1,9}"; //範圍只能0到9的數字，最少1一個，最多有9個字元
 	
