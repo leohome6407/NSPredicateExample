@@ -21,17 +21,25 @@
 
 - (NSInteger)getPriceFromString:(NSString *)price
 {
+	NSString *price = @"查詢完成|\n車資金額:354564\n交易狀態:扣款-失敗\n其它說明:\n如對金額有疑問";
 	//正則表達式過濾條件
-	NSString *pattern = @"[0-9]{1,9}"; //範圍只能0到9的數字，最少1一個，最多有9個字元
+	NSString *pattern = @"金額:+[0-9]{1,9}"; //範圍只能0到9的數字，最少1一個，最多有9個字元
 	
 	NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionDotMatchesLineSeparators error:NULL];
 	NSRange firstRange = [reg rangeOfFirstMatchInString:price options:NSMatchingReportProgress range:NSMakeRange(0, price.length)];
 	
-	NSString *filterResult = [price substringWithRange:firstRange];
+	if (firstRange.length !=0) {
+        	NSString *filterResult = [price substringWithRange:firstRange];
+		NSLog(@"匹配到第一組的位置:開始位置%lu--長度%lu",(unsigned long)firstRange.location,(unsigned long)firstRange.length);
+		NSLog(@"過濾結果為 %@",filterResult);
+		
+		return [filterResult integerValue];
+    	}else {
+        	NSLog(@"無匹配結果");
+		
+		return nil;
+    	}
 	
-	NSLog(@"匹配到第一組的位置:開始位置%lu--長度%lu",(unsigned long)firstRange.location,(unsigned long)firstRange.length);
-	NSLog(@"過濾結果為 %@",filterResult);
-	return [filterResult integerValue];
 }
 
 - (NSInteger)getPriceFromString1:(NSString *)price
